@@ -7,7 +7,7 @@ using System.Drawing.Imaging;
 
 namespace labo_03_interface
 {
-    public partial class frmEmulateur : Form
+    public partial class frmInterface : Form
     {
 
         private PortSerie ps = new PortSerie();
@@ -17,10 +17,10 @@ namespace labo_03_interface
         private int xDernier = -1, yDernier = -1;
         private Random alea = new Random();
         private bool actif = false;
-        private const int tailleTrame = 8;
+        private const int tailleTrame = 6;
         private byte[] trame = new byte[tailleTrame];
 
-        public frmEmulateur()
+        public frmInterface()
         {
             InitializeComponent();
         }
@@ -90,9 +90,54 @@ namespace labo_03_interface
             trame[1] = 0xA5;
         }
 
-        private void clkMinuterie_Tick(object sender, EventArgs e)
+        private byte[] tableau = new byte[tailleTrame];
+        private byte octet;
+        private int xActuel, yActuel;
+
+
+        private void clkReception_Tick(object sender, EventArgs e)
         {
-            if (niveauCarburant > 0) niveauCarburant -= 50;
+            clkReception.Enabled = false;
+
+            while (ps.DonneesALire() >= tailleTrame + 2)
+            {
+                ps.LireOctet(ref octet);
+                if (octet == 0x5A)
+                {
+                    ps.LireOctet(ref octet);
+                    if (octet == 0xA5)
+                    {
+                        uBmp.AcquiertGraphique(false);
+                        ps.LireOctets(tableau, 0, tailleTrame);
+                        xActuel = ((int)tableau[0] << 8) + tableau[1];
+                        yActuel = ((int)tableau[2] << 8) + tableau[3];
+
+                        if (xDernier != -1)
+                        {
+                            uBmp.DessineLigne(Pens.Black, xDernier, yDernier, xActuel, yActuel);
+                            if (serieVitesse.Points.Count > 99)
+                                serieVitesse.Points.RemoveAt(0);
+                            int dx = xActuel - xDernier;
+                            int dy = yActuel - yDernier;
+                            serieVitesse.Points.Add(Math.Sqrt((dx * dx) + (dy * dy)) * 5.0);
+                        }
+
+                        niveauCarburant = ((int)tableau[4] << 8) + tableau[5];
+                        if (serieNiveau.Points.Count > 99)
+                            serieNiveau.Points.RemoveAt(0);
+
+                        serieNiveau.Points.Add(niveauCarburant);
+
+                        xDernier = xActuel;
+                        yDernier = yActuel;
+                        uBmp.LibereGraphique();
+                        pcbImage.Image = uBmp.BitMap;
+
+                    }
+                }
+            }
+
+            clkReception.Enabled = true;
         }
 
         private void btnFairePlein_Click(object sender, EventArgs e)

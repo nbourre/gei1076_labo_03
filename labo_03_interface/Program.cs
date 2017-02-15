@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace labo_03_interface
@@ -16,7 +13,7 @@ namespace labo_03_interface
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmEmulateur());
+            Application.Run(new frmInterface());
         }
     }
 }

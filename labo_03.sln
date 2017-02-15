@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "labo_03_emulateur", "labo_0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gei1076_tools", "..\gei1076_tools\gei1076_tools\gei1076_tools.csproj", "{1F72DFB0-F424-4375-983A-F36467958FA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "labo_03_interface", "labo_03_interface\labo_03_interface.csproj", "{0E6926AA-B73B-40E9-9785-636F6F72CBA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1F72DFB0-F424-4375-983A-F36467958FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F72DFB0-F424-4375-983A-F36467958FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F72DFB0-F424-4375-983A-F36467958FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E6926AA-B73B-40E9-9785-636F6F72CBA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6926AA-B73B-40E9-9785-636F6F72CBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6926AA-B73B-40E9-9785-636F6F72CBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6926AA-B73B-40E9-9785-636F6F72CBA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

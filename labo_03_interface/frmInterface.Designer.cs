@@ -1,6 +1,6 @@
 ﻿namespace labo_03_interface
 {
-    partial class frmEmulateur
+    partial class frmInterface
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pcbImage = new System.Windows.Forms.PictureBox();
             this.btnEffacer = new System.Windows.Forms.Button();
-            this.btnFairePlein = new System.Windows.Forms.Button();
             this.spcSerialPortConfig = new gei1076_tools.SerialPortConfigurator();
-            this.clkMinuterie = new System.Windows.Forms.Timer(this.components);
+            this.clkReception = new System.Windows.Forms.Timer(this.components);
+            this.chartVitesse = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartNiveau = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.pcbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVitesse)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartNiveau)).BeginInit();
             this.SuspendLayout();
             // 
             // pcbImage
@@ -51,8 +60,8 @@
             // 
             // btnEffacer
             // 
-            this.btnEffacer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEffacer.Location = new System.Drawing.Point(13, 625);
+            this.btnEffacer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEffacer.Location = new System.Drawing.Point(981, 81);
             this.btnEffacer.Name = "btnEffacer";
             this.btnEffacer.Size = new System.Drawing.Size(75, 23);
             this.btnEffacer.TabIndex = 2;
@@ -60,44 +69,61 @@
             this.btnEffacer.UseVisualStyleBackColor = true;
             this.btnEffacer.Click += new System.EventHandler(this.btnEffacer_Click);
             // 
-            // btnFairePlein
-            // 
-            this.btnFairePlein.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFairePlein.Location = new System.Drawing.Point(452, 625);
-            this.btnFairePlein.Name = "btnFairePlein";
-            this.btnFairePlein.Size = new System.Drawing.Size(75, 23);
-            this.btnFairePlein.TabIndex = 3;
-            this.btnFairePlein.Text = "Faire le plein";
-            this.btnFairePlein.UseVisualStyleBackColor = true;
-            this.btnFairePlein.Click += new System.EventHandler(this.btnFairePlein_Click);
-            // 
             // spcSerialPortConfig
             // 
-            this.spcSerialPortConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.spcSerialPortConfig.Location = new System.Drawing.Point(13, 13);
             this.spcSerialPortConfig.Name = "spcSerialPortConfig";
             this.spcSerialPortConfig.Size = new System.Drawing.Size(514, 91);
             this.spcSerialPortConfig.TabIndex = 0;
             // 
-            // clkMinuterie
+            // clkReception
             // 
-            this.clkMinuterie.Tick += new System.EventHandler(this.clkMinuterie_Tick);
+            this.clkReception.Tick += new System.EventHandler(this.clkReception_Tick);
             // 
-            // frmEmulateur
+            // chartVitesse
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartVitesse.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartVitesse.Legends.Add(legend1);
+            this.chartVitesse.Location = new System.Drawing.Point(533, 110);
+            this.chartVitesse.Name = "chartVitesse";
+            this.chartVitesse.Size = new System.Drawing.Size(523, 251);
+            this.chartVitesse.TabIndex = 4;
+            title1.Name = "Vitesse";
+            this.chartVitesse.Titles.Add(title1);
+            // 
+            // chartNiveau
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartNiveau.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartNiveau.Legends.Add(legend2);
+            this.chartNiveau.Location = new System.Drawing.Point(533, 371);
+            this.chartNiveau.Name = "chartNiveau";
+            this.chartNiveau.Size = new System.Drawing.Size(523, 251);
+            this.chartNiveau.TabIndex = 4;
+            this.chartNiveau.Text = "chartNiveau";
+            title2.Name = "Niveau de carburant";
+            this.chartNiveau.Titles.Add(title2);
+            // 
+            // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 660);
-            this.Controls.Add(this.btnFairePlein);
+            this.ClientSize = new System.Drawing.Size(1068, 630);
+            this.Controls.Add(this.chartNiveau);
+            this.Controls.Add(this.chartVitesse);
             this.Controls.Add(this.btnEffacer);
             this.Controls.Add(this.pcbImage);
             this.Controls.Add(this.spcSerialPortConfig);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "frmEmulateur";
-            this.Text = "Émulateur";
+            this.Name = "frmInterface";
+            this.Text = "Interface";
             this.Load += new System.EventHandler(this.frmEmulateur_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVitesse)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartNiveau)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -107,8 +133,9 @@
         private gei1076_tools.SerialPortConfigurator spcSerialPortConfig;
         private System.Windows.Forms.PictureBox pcbImage;
         private System.Windows.Forms.Button btnEffacer;
-        private System.Windows.Forms.Button btnFairePlein;
-        private System.Windows.Forms.Timer clkMinuterie;
+        private System.Windows.Forms.Timer clkReception;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartVitesse;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartNiveau;
     }
 }
 
