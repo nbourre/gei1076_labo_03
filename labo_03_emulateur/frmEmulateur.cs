@@ -10,7 +10,7 @@ namespace labo_03_interface
     public partial class frmEmulateur : Form
     {
 
-        private PortSerie ps = new PortSerie();
+        private PortSerie ps;
         private UnsafeBitmap uBmp = new UnsafeBitmap(512, 512);
         private int niveauCarburant = 20000;
 
@@ -39,53 +39,25 @@ namespace labo_03_interface
         private void pcbImage_MouseDown(object sender, MouseEventArgs e)
         {
             actif = true;
+            clkMinuterie.Enabled = true;
+
         }
 
         private void pcbImage_MouseUp(object sender, MouseEventArgs e)
         {
             actif = false;
+            clkMinuterie.Enabled = false;
         }
 
-        bool fin = false;
-
-        private void btnRapide_Click(object sender, EventArgs e)
-        {
-            fin = false;
-
-            uBmp.AcquiertGraphique(true);
-
-            while (fin == false)
-            {
-                pcbImage.Image = uBmp.CreerNouvelleImage();
-                Application.DoEvents();
-            }
-
-            uBmp.LibereGraphique();
-
-        }
-
-        private void btnRapideArret_Click(object sender, EventArgs e)
-        {
-            fin = true;
-        }
 
         private Bitmap bitmap = new Bitmap(512, 512, PixelFormat.Format32bppArgb);
 
-        private void btnDessine_Click(object sender, EventArgs e)
-        {
-            Graphics lg = Graphics.FromImage(bitmap);
-
-            lg.DrawLine(Pens.Black, 0, 0, 100, 100);
-
-            lg.Dispose();
-
-            pcbImage.Image = bitmap;
-
-
-        }
 
         private void frmEmulateur_Load(object sender, EventArgs e)
         {
+            ps = spcSerialPortConfig.getPS();
+            clkMinuterie.Enabled = true;
+
             trame[0] = 0x5A;
             trame[1] = 0xA5;
         }

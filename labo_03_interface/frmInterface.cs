@@ -4,27 +4,71 @@ using System.Windows.Forms;
 
 using gei1076_tools;
 using System.Drawing.Imaging;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace labo_03_interface
 {
     public partial class frmInterface : Form
     {
 
-        private PortSerie ps = new PortSerie();
+        private PortSerie ps;
         private UnsafeBitmap uBmp = new UnsafeBitmap(512, 512);
-        private int niveauCarburant = 20000;
 
         private int xDernier = -1, yDernier = -1;
         private Random alea = new Random();
         private bool actif = false;
         private const int tailleTrame = 6;
         private byte[] trame = new byte[tailleTrame];
+        private byte[] tableau = new byte[tailleTrame];
+        private byte octet;
+        private int xActuel, yActuel;
+
+        private Series serieVitesse;
+        private Series serieNiveau;
+
+        private int niveauCarburant = 20000;
+        private const int niveauCarburantCritique = 5000;
 
         public frmInterface()
         {
             InitializeComponent();
         }
-        
+
+
+        private void frmInterface_Load(object sender, EventArgs e)
+        {
+            ps = spcSerialPortConfig.getPS();
+
+            clkReception.Enabled = true;
+            clkAlarmeNiveau.Enabled = true;
+
+            chartVitesse.Titles.Add("Vitesse");
+            chartVitesse.ChartAreas[0].AxisY.Minimum = 0;
+            chartVitesse.ChartAreas[0].AxisY.Maximum = 150;
+
+            if (serieVitesse != null) chartVitesse.Series.Remove(serieVitesse);
+
+            serieVitesse = chartVitesse.Series.Add("km/h");
+            serieVitesse.ChartType = SeriesChartType.FastLine;
+            serieVitesse.Color = Color.Blue;
+
+            serieVitesse.Points.Clear();
+
+
+            chartNiveau.Titles.Add("Niveau de carburant");
+            chartNiveau.ChartAreas[0].AxisY.Minimum = 0;
+            chartNiveau.ChartAreas[0].AxisY.Maximum = 20000;
+
+            if (serieNiveau != null) chartNiveau.Series.Remove(serieNiveau);
+
+            serieNiveau = chartNiveau.Series.Add("litres");
+            serieNiveau.ChartType = SeriesChartType.FastLine;
+            serieNiveau.Color = Color.Blue;
+
+            serieNiveau.Points.Clear();
+
+        }
+
 
         private void btnEffacer_Click(object sender, EventArgs e)
         {
@@ -84,15 +128,8 @@ namespace labo_03_interface
 
         }
 
-        private void frmEmulateur_Load(object sender, EventArgs e)
-        {
-            trame[0] = 0x5A;
-            trame[1] = 0xA5;
-        }
 
-        private byte[] tableau = new byte[tailleTrame];
-        private byte octet;
-        private int xActuel, yActuel;
+
 
 
         private void clkReception_Tick(object sender, EventArgs e)
@@ -138,6 +175,23 @@ namespace labo_03_interface
             }
 
             clkReception.Enabled = true;
+        }
+
+        private void clkAlarmeNiveau_Tick(object sender, EventArgs e)
+        {
+            if (niveauCarburant < niveauCarburantCritique)
+            {
+                lblNiveauCarburant.Text = "ARRÊT AU PUIT REQUIS";
+                if (lblNiveauCarburant.BackColor == Color.Black)
+                    lblNiveauCarburant.BackColor = Color.Red;
+                else
+                    lblNiveauCarburant.BackColor = Color.Black;
+            }
+            else
+            {
+                lblNiveauCarburant.Text = "";
+                lblNiveauCarburant.BackColor = Color.LightGreen;
+            }
         }
 
         private void btnFairePlein_Click(object sender, EventArgs e)

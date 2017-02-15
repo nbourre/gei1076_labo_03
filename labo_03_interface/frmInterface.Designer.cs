@@ -41,6 +41,8 @@
             this.clkReception = new System.Windows.Forms.Timer(this.components);
             this.chartVitesse = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartNiveau = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.clkAlarmeNiveau = new System.Windows.Forms.Timer(this.components);
+            this.lblNiveauCarburant = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pcbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartVitesse)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartNiveau)).BeginInit();
@@ -54,9 +56,6 @@
             this.pcbImage.Size = new System.Drawing.Size(515, 512);
             this.pcbImage.TabIndex = 1;
             this.pcbImage.TabStop = false;
-            this.pcbImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbImage_MouseDown);
-            this.pcbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pcbImage_MouseMove);
-            this.pcbImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pcbImage_MouseUp);
             // 
             // btnEffacer
             // 
@@ -78,6 +77,7 @@
             // 
             // clkReception
             // 
+            this.clkReception.Interval = 10;
             this.clkReception.Tick += new System.EventHandler(this.clkReception_Tick);
             // 
             // chartVitesse
@@ -107,11 +107,24 @@
             title2.Name = "Niveau de carburant";
             this.chartNiveau.Titles.Add(title2);
             // 
+            // clkAlarmeNiveau
+            // 
+            this.clkAlarmeNiveau.Tick += new System.EventHandler(this.clkAlarmeNiveau_Tick);
+            // 
+            // lblNiveauCarburant
+            // 
+            this.lblNiveauCarburant.AutoSize = true;
+            this.lblNiveauCarburant.Location = new System.Drawing.Point(765, 596);
+            this.lblNiveauCarburant.Name = "lblNiveauCarburant";
+            this.lblNiveauCarburant.Size = new System.Drawing.Size(0, 13);
+            this.lblNiveauCarburant.TabIndex = 5;
+            // 
             // frmInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1068, 630);
+            this.Controls.Add(this.lblNiveauCarburant);
             this.Controls.Add(this.chartNiveau);
             this.Controls.Add(this.chartVitesse);
             this.Controls.Add(this.btnEffacer);
@@ -120,11 +133,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmInterface";
             this.Text = "Interface";
-            this.Load += new System.EventHandler(this.frmEmulateur_Load);
+            this.Load += new System.EventHandler(this.frmInterface_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartVitesse)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartNiveau)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -136,6 +150,8 @@
         private System.Windows.Forms.Timer clkReception;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartVitesse;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartNiveau;
+        private System.Windows.Forms.Timer clkAlarmeNiveau;
+        private System.Windows.Forms.Label lblNiveauCarburant;
     }
 }
 
