@@ -74,35 +74,45 @@ namespace labo_03_interface
 
         private void pcbImage_MouseMove(object sender, MouseEventArgs e)
         {
-            if (actif && ps.Ouvert)
+            if (e.X < 0 || e.Y < 0) return;
+
+            try
             {
-                trame[2] = (byte)(e.X >> 8);
-                trame[3] = (byte)(e.X & 0xFF);
-                trame[4] = (byte)(e.Y >> 8);
-                trame[5] = (byte)(e.Y & 0xFF);
-
-                int niveauBruite = niveauCarburant + (alea.Next(500) - 250);
-                if (niveauBruite < 0) niveauBruite = 0;
-
-                trame[6] = (byte)(niveauBruite >> 8);
-                trame[7] = (byte)(niveauBruite & 0xFF);
-
-                ps.EcrireOctets(trame, 8);
-
-
-            }
-
-            if (actif)
-            {
-                if (xDernier != -1)
+                if (actif && ps.Ouvert)
                 {
-                    uBmp.AcquiertGraphique(false);
-                    uBmp.DessineLigne(Pens.Black, xDernier, yDernier, e.X, e.Y);
-                    uBmp.LibereGraphique();
-                    pcbImage.Image = uBmp.BitMap;
+
+                    trame[2] = (byte)(e.X >> 8);
+                    trame[3] = (byte)(e.X & 0xFF);
+                    trame[4] = (byte)(e.Y >> 8);
+                    trame[5] = (byte)(e.Y & 0xFF);
+
+                    int niveauBruite = niveauCarburant + (alea.Next(500) - 250);
+                    if (niveauBruite < 0) niveauBruite = 0;
+
+                    trame[6] = (byte)(niveauBruite >> 8);
+                    trame[7] = (byte)(niveauBruite & 0xFF);
+
+                    ps.EcrireOctets(trame, 8);
+
+
                 }
-                xDernier = e.X;
-                yDernier = e.Y;
+
+                if (actif)
+                {
+                    if (xDernier != -1)
+                    {
+                        uBmp.AcquiertGraphique(false);
+                        uBmp.DessineLigne(Pens.Black, xDernier, yDernier, e.X, e.Y);
+                        uBmp.LibereGraphique();
+                        pcbImage.Image = uBmp.BitMap;
+                    }
+                    xDernier = e.X;
+                    yDernier = e.Y;
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Erreur \n" + ex.Message);
+
             }
         }
     }
